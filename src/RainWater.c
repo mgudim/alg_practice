@@ -37,7 +37,6 @@ unsigned findWaterTrapped(unsigned* heights, size_t size) {
             thisWaterTrapped = 0;
         }
         totalWaterTrapped += thisWaterTrapped;
-        printf("%d\n", totalWaterTrapped);
     }
 
     return (unsigned) totalWaterTrapped;

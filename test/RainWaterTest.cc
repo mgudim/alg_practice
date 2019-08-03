@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 #include <stddef.h>
-#include "TestUtils.h"
 extern "C" {
     #include "RainWater.h"
 }
