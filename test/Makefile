@@ -16,7 +16,7 @@ SRC_FILES := $(subst $(SRC_DIR), , $(shell find $(SRC_DIR) -name "*.cc"))
 INC_DIR = ../include /home/gmock-1.7.0/gtest/include /home/gmock-1.7.0/include
 OBJ_FILES = $(addprefix $(BUILD_DIR)/, $(SRC_FILES:.cc=.o))
 CC = g++
-CC_FLAGS = -O2
+CC_FLAGS = -O2 -g
 INC_FLAGS = $(addprefix -I, $(INC_DIR))
 link: compile 
 	mkdir -p $(BUILD_DIR)
