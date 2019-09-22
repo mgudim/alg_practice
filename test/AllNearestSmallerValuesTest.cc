@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "gmock/gmock.h"
+#include <limits.h>
 #include "TestUtils.h"
 extern "C" {
     #include "AllNearestSmallerValues.h"
