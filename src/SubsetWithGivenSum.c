@@ -1,5 +1,6 @@
 #include "SubsetWithGivenSum.h"
-#include "libds/Hashing/HashTables.h"
+#include "libds/Hashing/CHT.h"
+#include "libds/Hashing/HashingFunctions.h"
 
 
 bool hasTwoNumbersWithSum(
@@ -7,22 +8,21 @@ bool hasTwoNumbersWithSum(
     size_t numElements,
     int targetSum
 ) {
-    KeyValuePairNode bucketsArray[numElements];
-    ChainedHashTableData chainedHashTableData;
-    chainedHashTableData.bucketsArray = bucketsArray;
-    chainedHashTableData.numBuckets = numElements;
-    initializeBucketsArray(bucketsArray, &chainedHashTableData);
-    KeyValuePairNode elements[numElements];
+    unsigned numBuckets = (numElements / 4) + 1;
+    LLNode buckets[numBuckets];
+    HashingFunction hashFn = &getModPrime16;
+    CHT cht;
+    chtC(&cht, buckets, numBuckets, hashFn);
+    KVPair kvs[numElements];
+    LLNode kvPairNodes[numElements];
     for (size_t i = 0; i < numElements; ++i) {
-        if (
-            (size_t) findPrimeMod16Chained(targetSum - arr[i], &chainedHashTableData)
-            == 1
-        ) {
+        if (chtFind(&cht, (targetSum - arr[i])) != NULL) {
             return true;
         } else {
-            elements[i].key = arr[i];
-            elements[i].value = (void*) 1;
-            insertPrimeMod16Chained(&elements[i], &chainedHashTableData);
+            kvs[i].key = arr[i];
+            kvs[i].value = (void*) 1;
+            kvPairNodes[i].data = (void*) &kvs[i];
+            chtInsert(&cht, &kvPairNodes[i]);
         }
     }
     return false;
